@@ -39,7 +39,19 @@ func upload(file_path string) error {
 	}
 
 	//3、上传文件到bucket
-	return bucket.PutObjectFromFile(file_path, file_path)
+	if err := bucket.PutObjectFromFile(file_path, file_path); err != nil {
+		return err
+	}
+
+	//4、打印下载信息
+	downloadURL, err := bucket.SignURL(file_path, oss.HTTPGet, 60*60*24)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("文件下载链接: %s\n", downloadURL)
+	fmt.Println("\n注意: 文件下载有效期为1天, 中转站保存时间为3天, 请及时下载")
+
+	return nil
 }
 
 // 参数合法性检查
@@ -91,4 +103,5 @@ func main() {
 		os.Exit(1)
 	}
 	fmt.Printf("文件：%s 上传完成 \n", uploadFile)
+
 }
