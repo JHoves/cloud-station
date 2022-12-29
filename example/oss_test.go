@@ -47,7 +47,6 @@ func TestUploadFile(t *testing.T) {
 // 初始话一个Oss Client 等下其他测试用例可以直接使用
 func init() {
 	c, err := oss.New(OssEndpoint, AccessKey, AccessSecret)
-	//c, err := oss.New("oss-cn-shenzhen.aliyuncs.com", "LTAI5tKHCfxqqM8jCaJBHNEv", "q8wmnzK5jhXux9yhbMJHNRShWg0MNu")
 	if err != nil {
 		panic(err)
 	}
