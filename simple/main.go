@@ -11,8 +11,8 @@ import (
 var (
 	//程序内置
 	endpoint        = "oss-cn-shenzhen.aliyuncs.com"
-	accessKey       = "LTAI5tKHCfxqqM8jCaJBHNEv"
-	accessSecretKey = "q8wmnzK5jhXux9yhbMJHNRShWg0MNu"
+	accessKey       = "xx"
+	accessSecretKey = "xx"
 
 	//默认配置
 	bucketName = "jh-devcloud-station"

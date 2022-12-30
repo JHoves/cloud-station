@@ -55,18 +55,18 @@ type AliOssStore struct {
 
 // 实现接口
 func (s *AliOssStore) Upload(bucketName string, objectKey string, filename string) error {
-	//2、获取bucket对象
+	//1、获取bucket对象
 	bucket, err := s.client.Bucket(bucketName)
 	if err != nil {
 		return err
 	}
 
-	//3、上传文件到bucket
+	//2、上传文件到bucket
 	if err := bucket.PutObjectFromFile(objectKey, filename); err != nil {
 		return err
 	}
 
-	//4、打印下载信息
+	//3、打印下载信息
 	downloadURL, err := bucket.SignURL(objectKey, oss.HTTPGet, 60*60*24)
 	if err != nil {
 		return err
