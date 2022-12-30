@@ -44,13 +44,16 @@ func NewAliOssStore(o *Options) (*AliOssStore, error) {
 		return nil, err
 	}
 	return &AliOssStore{
-		client: client,
+		client:   client,
+		listener: NewDefaultProgressListener(),
 	}, nil
 }
 
 // 创建一个对象
 type AliOssStore struct {
 	client *oss.Client
+	//依赖listener的实现
+	listener oss.ProgressListener
 }
 
 // 实现接口
@@ -62,7 +65,7 @@ func (s *AliOssStore) Upload(bucketName string, objectKey string, filename strin
 	}
 
 	//2、上传文件到bucket
-	if err := bucket.PutObjectFromFile(objectKey, filename); err != nil {
+	if err := bucket.PutObjectFromFile(objectKey, filename, oss.Progress(s.listener)); err != nil {
 		return err
 	}
 
